@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}All Articles{% endblock %}
+{% block content %}
+  <h1 class="title">Published Articles</h1>
+  {% for article in articles %}
+    <div class="box">
+      <h2 class="subtitle">
+        <a href="{% url 'articles:article-detail' article.pk %}">
+          {{ article.title }}
+        </a>
+      </h2>
+      <p>
+        By {{ article.author.username }} on {{ article.published_date|date:"M d, Y H:i" }}
+      </p>
+    </div>
+  {% empty %}
+    <p>No articles have been published yet.</p>
+  {% endfor %}
+{% endblock %}

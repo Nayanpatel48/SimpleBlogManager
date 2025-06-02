@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}My Blog{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+<body>
+  <nav class="navbar has-background-light" role="navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="{% url 'articles:article-list' %}">
+        MyBlog
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="{% url 'articles:article-list' %}">Home</a>
+        {% if user.is_authenticated %}
+          <a class="navbar-item" href="{% url 'articles:article-create' %}">New Article</a>
+        {% endif %}
+      </div>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          {% if user.is_authenticated %}
+            <div>Welcome, {{ user.username }}!</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>
+  <section class="section">
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </section>
+</body>
+</html>

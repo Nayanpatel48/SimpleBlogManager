@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}{{ object.title }}{% endblock %}
+{% block content %}
+  <h1 class="title">{{ object.title }}</h1>
+  <p class="subtitle">
+    By {{ object.author.username }} on {{ object.published_date|date:"M d, Y H:i" }}
+  </p>
+  {% if object.featured_image %}
+  <figure class="image">
+    <img src="{{ object.featured_image.url }}" alt="Featured image">
+  </figure>
+{% endif %}
+
+  <div class="content">
+    {{ object.body|linebreaks }}
+  </div>
+
+  {% if user == object.author %}
+    <div class="buttons">
+      <a class="button is-info" href="{% url 'articles:article-update' object.pk %}">
+        Edit
+      </a>
+      <a class="button is-danger" href="{% url 'articles:article-delete' object.pk %}">
+        Delete
+      </a>
+    </div>
+  {% endif %}
+  <a class="button" href="{% url 'articles:article-list' %}">Back to list</a>
+{% endblock %}
